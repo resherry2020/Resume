@@ -2,10 +2,10 @@ from django.shortcuts import render
 from django.contrib import messages
 from .models import (
 		UserProfile,
-		Blog,
-		Portfolio,
-		Testimonial,
-		Certificate,
+		Experience,
+		Project,
+		Accomplishment,
+		Education,
         Skill
 	)
 
@@ -22,23 +22,25 @@ class IndexView(generic.TemplateView):
 		context = super().get_context_data(**kwargs)
 
 		userprofile = UserProfile.objects.first()
-		testimonials = Testimonial.objects.filter(is_active=True)
-		certificates = Certificate.objects.filter(is_active=True)
-		blogs = Blog.objects.filter(is_active=True)
-		portfolio = Portfolio.objects.filter(is_active=True)
-		#me = userprofile
-		key_skills = userprofile.userprofile_skills.filter(is_key_skill=True)
-		debugging_skills = userprofile.debugging_skills.all()
-		coding_skills = userprofile.userprofile_skills.filter(is_key_skill=False).exclude(id__in=debugging_skills)
-
-		me = UserProfile.objects.first()
+		accomplishments = Accomplishment.objects.filter(is_active=True)
+		educations = Education.objects.filter(is_active=True)
+		experiences = Experience.objects.filter(is_active=True)
+		project = Project.objects.filter(is_active=True)
+		if userprofile:
+			key_skills = userprofile.userprofile_skills.filter(is_key_skill=True)
+			debugging_skills = userprofile.debugging_skills.all()
+			coding_skills = userprofile.userprofile_skills.filter(is_key_skill=False).exclude(id__in=debugging_skills)
+		else:
+			key_skills = []
+			debugging_skills = []
+			coding_skills = []
 
   
 		context["me"] = userprofile
-		context["testimonials"] = testimonials
-		context["certificates"] = certificates
-		context["blogs"] = blogs
-		context["portfolio"] = portfolio
+		context["accomplishments"] = accomplishments
+		context["educations"] = educations
+		context["experiences"] = experiences
+		context["project"] = project
 		context["key_skills"] = key_skills
 		context["coding_skills"] = coding_skills
 		context["debugging_skills"] = debugging_skills
@@ -59,28 +61,28 @@ class ContactView(generic.FormView):
 		return super().form_valid(form)
 
 
-class PortfolioView(generic.ListView):
-	model = Portfolio
-	template_name = "main/portfolio.html"
+class ProjectView(generic.ListView):
+	model = Project
+	template_name = "main/project.html"
 	paginate_by = 10
 
 	def get_queryset(self):
 		return super().get_queryset().filter(is_active=True)
 
 
-class PortfolioDetailView(generic.DetailView):
-	model = Portfolio
-	template_name = "main/portfolio-detail.html"
+class ProjectDetailView(generic.DetailView):
+	model = Project
+	template_name = "main/project-detail.html"
 
-class BlogView(generic.ListView):
-	model = Blog
-	template_name = "main/blog.html"
+class ExperienceView(generic.ListView):
+	model = Experience
+	template_name = "main/experience.html"
 	paginate_by = 10
 	
 	def get_queryset(self):
 		return super().get_queryset().filter(is_active=True)
 
 
-class BlogDetailView(generic.DetailView):
-	model = Blog
-	template_name = "main/blog-detail.html"
+class ExperienceDetailView(generic.DetailView):
+	model = Experience
+	template_name = "main/experience-detail.html"

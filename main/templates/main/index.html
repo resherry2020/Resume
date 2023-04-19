@@ -40,7 +40,9 @@ Start Content
       <div class="row g-4 g-md-3  align-items-center">
         <div class="col-md-auto order-md-last">
           <div class="bannerUserImg">
-            <img src="{{me.avatar.url}}" alt="{{me.user.first_name|title}} {{me.user.last_name|title}} avatar">
+            {% if me.avatar %}
+              <img src="{{me.avatar.url}}" alt="{{me.user.first_name|title}} {{me.user.last_name|title}} avatar">
+            {% endif %}
           </div>
         </div>
         <div class="col-md">
@@ -50,7 +52,9 @@ Start Content
             <div class="bannerBtnCol">
               <div class="row">
                 <div class="col-auto">
-                  <a download href="{{me.cv.url}}" class="btn btnPrimary">Download Resume</a>
+                  {% if me.cv %}
+                    <a download href="{{me.cv.url}}" class="btn btnPrimary">Download Resume</a>
+                  {% endif %}
                 </div>
                 <div class="col-auto">
                   <a href="{% url 'main:contact' %}" class="btn btnOutline">Contact</a>
@@ -119,14 +123,13 @@ Start Content
     <div class="container">
       <div class="row pb-3">
         <div class="col">
-          <h4 class="smText regular">Certificates</h4>
+          <h4 class="smText regular">Educations</h4>
         </div>
-
       </div>
       <div class="sliderOuter">
-        <div class="swiper certificatesSlider">
+        <div class="swiper educationSlider">
           <div class="swiper-wrapper">
-            {% for c in certificates %}
+            {% for c in educations %}
             {% if c.is_active %}
             <div class="swiper-slide">
               <div class="cardStyle1">
@@ -134,7 +137,7 @@ Start Content
                   <a href="javascript:void(0)">{{c.title}}</a>
                 </h4>
                 <ul class="cardOptionCol">
-                  <li>{{c.date.date}}</li>
+                  <li>{{c.start_date|date:"Y-m"}} -- {{c.end_date|date:"Y-m"}}</li>
                   <li>{{c.name|title}}</li>
                 </ul>
                 <p>{{c.description}}</p>
@@ -142,7 +145,6 @@ Start Content
             </div>
             {% endif %}
             {% endfor %}
-            
           </div>
         </div>            
         <div class="cert-swiper-button-next swiper-button-next swiperBtnStyle"></div>
@@ -153,25 +155,26 @@ Start Content
   </div>
 </section>
 
+
 <section>
   <div class="sectionSpace">
     <div class="container">
-      <div class="portfolioCol">
+      <div class="projectCol">
         <div class="row pb-3">
           <div class="col">
-            <h4 class="smText regular">Featured Work</h4>
+            <h4 class="smText regular">Projects</h4>
           </div>
           <div class="col-auto">
-            <a href="{% url 'main:portfolios' %}" class="simpleLink">View all</a>
+            <a href="{% url 'main:projects' %}" class="simpleLink">View all</a>
           </div>
         </div>
-        {% for p in portfolio %}
+        {% for p in project %}
         {% if p.is_active %}
-        <div class="portfolioCard">
+        <div class="projectCard">
           <div class="row g-4 align-items-center">
             <div class="col-md-auto">
-              <div class="portfolioImgCol">
-                <a href="{% url 'main:portfolio' slug=p.slug %}">
+              <div class="projectImgCol">
+                <a href="{% url 'main:project' slug=p.slug %}">
                   {% if p.image %}
                     <img src="{{ p.image.url }}" alt="...">
                   {% else %}
@@ -182,10 +185,10 @@ Start Content
               </div>
             </div>
             <div class="col-md">
-              <div class="portfolioContentCol">
-                <h4 class="lgTitle"><a href="{% url 'main:portfolio' slug=p.slug %}">{{p.name}}</a></h4>
-                <ul class="portfolioOption">
-                  <li><span class="dateLbl">{{p.date.year}}</span></li>
+              <div class="projectContentCol">
+                <h4 class="lgTitle"><a href="{% url 'main:project' slug=p.slug %}">{{p.name}}</a></h4>
+                <ul class="projectOption">
+                  <li><span class="dateLbl">{{ p.start_date.year }}-{{ p.start_date.month }} -- {{ p.end_date.year }}-{{ p.end_date.month }}</span></li>
                 </ul>
                 <p>{{p.description}}</p>
               </div>
@@ -196,15 +199,15 @@ Start Content
         {% endfor %}
         
       </div>
-      <div class="testimonialCol">
-        <h4 class="smText regular d-block">Testimonials</h4>
-        <div class="testimonialSlider">
-          <div class="swiper testimonialSwiper">
+      <div class="accomplishmentCol">
+        <h4 class="smText regular d-block">Accomplishments</h4>
+        <div class="accomplishmentSlider">
+          <div class="swiper accomplishmentSwiper">
             <div class="swiper-wrapper">
-              {% for t in testimonials %}
+              {% for t in accomplishments %}
               {% if t.is_active %}
               <div class="swiper-slide">
-                <div class="testimonialCard">
+                <div class="accomplishmentCard">
                   <div class="row align-items-center">
                     <div class="col-sm-auto">
                       <div class="tImgCol">
@@ -240,18 +243,18 @@ Start Content
     <div class="container">
       <div class="row pb-3">
         <div class="col">
-          <h4 class="smText regular">Recent posts</h4>
+          <h4 class="smText regular">Experiences</h4>
         </div>
         <div class="col-auto">
-          <a href="{% url 'main:blogs' %}" class="simpleLink">View all</a>
+          <a href="{% url 'main:experiences' %}" class="simpleLink">View all</a>
         </div>
       </div>
       <div class="row g-3">
-      {% for b in blogs %}
+      {% for b in experiences %}
       {% if b.is_active %}
         <div class="col-lg-6">
           <div class="cardStyle1">
-            <h4 class="mdTitle cs1Title"><a href="{% url 'main:blog' slug=b.slug %}">{{b.name}}</a></h4>
+            <h4 class="mdTitle cs1Title"><a href="{% url 'main:experience' slug=b.slug %}">{{b.name}}</a></h4>
             <ul class="cardOptionCol">
               <li>{{b.timestamp.date}}</li>
               <li>{{b.author}}</li>

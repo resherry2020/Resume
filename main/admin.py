@@ -2,11 +2,11 @@ from django.contrib import admin
 from . models import (
     UserProfile,
     ContactProfile,
-    Testimonial,
+    Accomplishment,
     Media,
-    Portfolio,
-    Blog,
-    Certificate,
+    Project,
+    Experience,
+    Education,
     Skill
     )
 
@@ -19,26 +19,26 @@ class UserProfileAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
 	list_display = ('id', 'timestamp', 'name',)
 
-@admin.register(Testimonial)
-class TestimonialAdmin(admin.ModelAdmin):
+@admin.register(Accomplishment)
+class AccomplishmentAdmin(admin.ModelAdmin):
     list_display = ('id','name','is_active')
 
 @admin.register(Media)
 class MediaAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
 
-@admin.register(Portfolio)
-class PortfolioAdmin(admin.ModelAdmin):
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id','name','is_active')
     readonly_fields = ('slug',)
 
-@admin.register(Blog)
-class BlogAdmin(admin.ModelAdmin):
+@admin.register(Experience)
+class ExperienceAdmin(admin.ModelAdmin):
     list_display = ('id','name','is_active')
     readonly_fields = ('slug',)
 
-@admin.register(Certificate)
-class CertificateAdmin(admin.ModelAdmin):
+@admin.register(Education)
+class EducationAdmin(admin.ModelAdmin):
     list_display = ('id','name')
 
 @admin.register(Skill)

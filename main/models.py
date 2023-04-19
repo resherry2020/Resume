@@ -55,14 +55,14 @@ class ContactProfile(models.Model):
 
 
 
-class Testimonial(models.Model):
+class Accomplishment(models.Model):
 
     class Meta:
-        verbose_name_plural = 'Testimonials'
-        verbose_name = 'Testimonial'
+        verbose_name_plural = 'Accomplishments'
+        verbose_name = 'Accomplishment'
         ordering = ["name"]
 
-    thumbnail = models.ImageField(blank=True, null=True, upload_to="testimonials")
+    thumbnail = models.ImageField(blank=True, null=True, upload_to="accomplishments")
     name = models.CharField(max_length=200, blank=True, null=True)
     role = models.CharField(max_length=200, blank=True, null=True)
     quote = models.CharField(max_length=500, blank=True, null=True)
@@ -91,37 +91,38 @@ class Media(models.Model):
     def __str__(self):
         return self.name
 
-class Portfolio(models.Model):
+class Project(models.Model):
 
     class Meta:
-        verbose_name_plural = 'Portfolio Profiles'
-        verbose_name = 'Portfolio'
+        verbose_name_plural = 'Project'
+        verbose_name = 'Project'
         ordering = ["name"]
-    date = models.DateTimeField(blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
     name = models.CharField(max_length=200, blank=True, null=True)
     description = models.CharField(max_length=500, blank=True, null=True)
     body = RichTextField(blank=True, null=True)
-    image = models.ImageField(blank=True, null=True, upload_to="portfolio")
+    image = models.ImageField(blank=True, null=True, upload_to="project")
     slug = models.SlugField(unique=True)
     is_active = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.name)
-        super(Portfolio, self).save(*args, **kwargs)
+        super(Project, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return f"/portfolio/{self.slug}"
+        return f"/project/{self.slug}"
 
 
-class Blog(models.Model):
+class Experience(models.Model):
 
     class Meta:
-        verbose_name_plural = 'Blog Profiles'
-        verbose_name = 'Blog'
+        verbose_name_plural = 'Experience Profiles'
+        verbose_name = 'Experience'
         ordering = ["timestamp"]
 
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -130,32 +131,33 @@ class Blog(models.Model):
     description = models.CharField(max_length=500, blank=True, null=True)
     body = RichTextField(blank=True, null=True)
     slug = models.SlugField(null=True, blank=True)
-    image = models.ImageField(blank=True, null=True, upload_to="blog")
+    image = models.ImageField(blank=True, null=True, upload_to="experience")
     is_active = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.name)
-        super(Blog, self).save(*args, **kwargs)
+        super(Experience, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return f"/blog/{self.slug}"
+        return f"/experience/{self.slug}"
 
 
-class Certificate(models.Model):
-
+class Education(models.Model):
     class Meta:
-        verbose_name_plural = 'Certificates'
-        verbose_name = 'Certificate'
+        verbose_name_plural = 'Educations'
+        verbose_name = 'Education'
 
-    date = models.DateTimeField(blank=True, null=True)
-    name = models.CharField(max_length=50, blank=True, null=True)
-    title = models.CharField(max_length=200, blank=True, null=True)
+    start_date = models.DateField(blank=True, null=True, verbose_name='开始日期')
+    end_date = models.DateField(blank=True, null=True, verbose_name='结束日期')
+    name = models.CharField(max_length=50, blank=True, null=True, verbose_name='uni')
+    title = models.CharField(max_length=200, blank=True, null=True, verbose_name='major')
     description = models.CharField(max_length=500, blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
+
