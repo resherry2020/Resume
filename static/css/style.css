@@ -776,3 +776,6 @@ input[type=text], input[type=email], select, textarea {
   margin-bottom: 16px;
   resize: vertical
 }
+.accomplishmentSlider .swiperBtnStyle {
+  display: block !important;
+}

@@ -3,8 +3,7 @@ $('.navToggle').on('click', function (e) {
   $('body').toggleClass('navToggleActive');
 });
 
-
-$(window).scroll(function(){
+$(window).scroll(function () {
   if ($(this).scrollTop() > 10) {
     $('body').addClass('fixedHeader');
   } else {
@@ -12,25 +11,23 @@ $(window).scroll(function(){
   }
 });
 
-
-var swiper = new Swiper(".testimonialSwiper", {
+var testimonialSwiper = new Swiper('.testimonialSwiper', {
   navigation: {
-    nextEl: ".test-swiper-button-next",
-    prevEl: ".test-swiper-button-prev",
+    nextEl: '.test-swiper-button-next',
+    prevEl: '.test-swiper-button-prev',
   },
 });
 
-
-var swiper = new Swiper(".certificatesSlider", {
+var certificatesSlider = new Swiper('.certificatesSlider', {
   slidesPerView: 1,
   spaceBetween: 16,
   pagination: {
-    el: ".swiper-pagination",
+    el: '.swiper-pagination',
     clickable: true,
   },
   navigation: {
-    nextEl: ".cert-swiper-button-next",
-    prevEl: ".cert-swiper-button-prev",
+    nextEl: '.cert-swiper-button-next',
+    prevEl: '.cert-swiper-button-prev',
   },
   breakpoints: {
     640: {
@@ -47,3 +44,35 @@ var swiper = new Swiper(".certificatesSlider", {
     },
   },
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  var educationSlider = new Swiper('.educationSlider', {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    navigation: {
+      nextEl: '.cert-swiper-button-next',
+      prevEl: '.cert-swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var accomplishmentsSlider = new Swiper('.accomplishmentsSwiper', {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    navigation: {
+      nextEl: '.accompl-swiper-button-next',
+      prevEl: '.accompl-swiper-button-prev',
+    },
+    pagination: {
+      el: '.accomplishment-pagination',
+      clickable: true,
+    },
+  });
+});
+
+
