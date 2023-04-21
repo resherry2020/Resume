@@ -121,14 +121,14 @@ class Project(models.Model):
 class Experience(models.Model):
 
     class Meta:
-        verbose_name_plural = 'Experience Profiles'
+        verbose_name_plural = 'Experience'
         verbose_name = 'Experience'
-        ordering = ["timestamp"]
+        ordering = ["start_date"]
 
-    timestamp = models.DateTimeField(auto_now_add=True)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
     author = models.CharField(max_length=200, blank=True, null=True)
     name = models.CharField(max_length=200, blank=True, null=True)
-    description = models.CharField(max_length=500, blank=True, null=True)
     body = RichTextField(blank=True, null=True)
     slug = models.SlugField(null=True, blank=True)
     image = models.ImageField(blank=True, null=True, upload_to="experience")
@@ -153,9 +153,8 @@ class Education(models.Model):
 
     start_date = models.DateField(blank=True, null=True, verbose_name='开始日期')
     end_date = models.DateField(blank=True, null=True, verbose_name='结束日期')
-    name = models.CharField(max_length=50, blank=True, null=True, verbose_name='uni')
-    title = models.CharField(max_length=200, blank=True, null=True, verbose_name='major')
-    description = models.CharField(max_length=500, blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True, verbose_name='学校')
+    title = models.CharField(max_length=200, blank=True, null=True, verbose_name='专业')
     is_active = models.BooleanField(default=True)
 
     def __str__(self):

@@ -776,6 +776,7 @@ input[type=text], input[type=email], select, textarea {
   margin-bottom: 16px;
   resize: vertical
 }
-.accomplishmentSlider .swiperBtnStyle {
-  display: block !important;
+.accomplishmentCard {
+  margin-bottom: 50px; /* 调整这个值来设置卡片之间的垂直间距 */
 }
+

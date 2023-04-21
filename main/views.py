@@ -86,3 +86,4 @@ class ExperienceView(generic.ListView):
 class ExperienceDetailView(generic.DetailView):
 	model = Experience
 	template_name = "main/experience-detail.html"
+ 
